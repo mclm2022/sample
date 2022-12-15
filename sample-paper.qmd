@@ -1,0 +1,168 @@
+---
+title: "Sample Paper"
+author: "Sample Student"
+format:
+  html:
+    theme: sandstone
+    toc: true
+  pdf:
+    lof: true
+    lot: true
+    toc: true
+  docx:
+    refrence-doc: template.docx
+number-sections: true
+echo: false
+abstract: "This is a sample abstract for the sample paper just to show how you can add an abstract."
+abstract-title: "Abstract"
+bibliography:
+  - bibliography.bib
+  - packages.bib
+csl: unified-style-sheet-for-linguistics.csl
+prefer-html: true
+code-link: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+options(digits = 2, knitr.kable.NA = "")
+library(tidyverse)
+library(kableExtra)
+library(here)
+library(xml2)
+theme_set(theme_minimal(base_size = 20))
+
+knitr::write_bib(
+  c("base", "mclm", "xml2", "ggplot2", "tidyverse"),
+  here("packages.bib")
+)
+
+dataset <- read_tsv(here("register-analysis.tsv"), show_col_types = FALSE)
+fa <- dataset %>% data.frame(row.names = "filename") %>% 
+  as.matrix() %>% factanal(factors = 4, scores = "regression")
+```
+
+
+# Introduction
+
+In this sample paper a few tables, plots and pieces of text are reproduced from the register analysis case study. The goal is to illustrate some things to be expected from a final paper for this course.
+
+For example, a key aspect of the corpus in this analysis is its register structure. Therefore, next to a brief description of the corpus itself, it would make sense to add and describe a table such as @tbl-registers.
+
+```{r}
+#| label: tbl-registers
+#| tbl-cap: List of components of the Brown corpus with the registers they represent, number of files and number of tokens.
+brown_mapping_df <- read_tsv(here("brown_files.tsv"), show_col_types = FALSE)
+brown_mapping_df %>% 
+  select(Section, Component, Register, Files, Tokens = Size) %>% 
+  kbl(align = "lrlrr", format.args = list(big.mark = " ")) %>% 
+  kable_paper(full_width = FALSE) %>% 
+  collapse_rows(1)
+```
+
+Tables can be written either in R chunks or manually (for example, to easily add markdown formatting and footnotes), but in any case they should have a caption and be cross-referenceable, like @tbl-pos. That table defines the 13 numerical variables, which are very few compared to what @biber_1988 used.
+
+Name | Value
+-- | --------
+`ttr` | Type token ratio (number of types divided by number of tokens)^[The type token ratio of different texts can only be compared if they have similar lengths, which is the case with the Brown corpus.]
+`word_len` | Average word length, in characters
+`p_mw` | Proportion of combined tags; typically clitics as in *she's*
+`p_c` | Proportion of punctuation characters
+`p_ppss` | Proportion of personal pronouns nominative, besides third person singular
+`p_noun` | Proportion of nouns
+`p_bigr` | Number of unique word bigrams, relative to document size
+`p_nomin` | Proportion of nominalisations (nouns ending in *-tion*, *-ment*, *-ness*, or *-ity*)
+`p_pobi` | Number of unique pos tag bigrams, relative to document size
+`p_adj` | Proportion of adjectives
+`p_neg` | Number of negations, relative to document size
+`p_adv` | Proportion of adverbs
+`p_qual` | Number of qualifiers, relative to document size
+
+: Numerical variables and their definitions: {#tbl-pos}
+
+The annotation was performed with the help of the `{tidyverse}`, `{mclm}` and `{xml2}` packages [@tidyverse2019; @R-mclm; @R-xml2]. Yes, packages should be cited as well.
+
+# Intermediate session
+
+Normally you wouldn't show the code call in your paper, so you can add `echo: false` to your top YAML. But for specific code that is key to the paper, it might be interesting to show it (without evaluating) it in the paper, for example:
+
+```{r}
+#| label: show-fa
+#| eval: false
+#| echo: true
+dataset <- read_tsv(here("register-analysis.tsv"), show_col_types = FALSE)
+fa <- dataset %>% data.frame(row.names = "filename") %>% 
+  as.matrix() %>% factanal(factors = 4, scores = "regression")
+```
+
+But, given that the source code is included along with the paper, it is not strictly necessary. We might want to add more references, though, such as citing @R-base, adding @levshina_2015 to @biber_1988, and including a quote:
+
+> In the description of textual variation, where the factors represent underlying textual dimensions, there is no reason to assume that the factors are completely uncorrelated, and therefore a Promax rotation is recommended.
+> [@biber_1988 85]
+
+Of course, we should use cross references to refer to useful figures and tables such as @fig-scores and @tbl-factors. If your figures or tables are not useful enough to be referenced, then maybe they shouldn't be in the paper either.
+
+```{r}
+#| label: tbl-factors
+#| tbl-cap: Loadings of the four factors.
+fa_loads <- unclass(loadings(fa)) %>% 
+  as_tibble(rownames = "Variable") %>% 
+  mutate(across(where(is.numeric), ~ if_else(abs(.x) < 0.3, NA_real_, .x)))
+kbl(fa_loads) %>% kable_paper(font_size = 22)
+```
+
+```{r}
+#| label: fig-scores
+#| fig-cap: Scatterplot of document scores with the first two factors as dimensions and relevant registers annotated.
+scores <- as_tibble(fa$scores, rownames = "File")
+brown_mapping <- brown_mapping_df %>%
+  select(Component, Register) %>%
+  deframe()
+
+register_centroids <- scores %>%
+  mutate(Component = str_extract(File, "[a-z]"), Register = brown_mapping[Component]) %>%
+  group_by(Register) %>%
+  summarize(Factor1 = mean(Factor1), Factor2 = mean(Factor2))
+top_1 <- register_centroids %>% arrange(Factor1) %>%
+  tail(2) %>% summarize(across(where(is.numeric), mean))
+top_2 <- register_centroids %>% arrange(Factor2) %>%
+  tail(2) %>% summarize(across(where(is.numeric), mean))
+
+ggplot(scores, aes(x = Factor1, y = Factor2)) +
+  geom_text(aes(label = File), color = "gray", size = 3, alpha = 0.8) +
+  geom_point(data = register_centroids, size = 3) +
+  annotate("segment", x = 1.5, y = 1, xend = top_1$Factor1, yend = top_1$Factor2) +
+  annotate("label", x = 1.5, y = 1, label = "Miscellaneous & Learned") +
+  annotate("segment", x = -0.8, y = 3, xend = top_2$Factor1, yend = top_2$Factor2) +
+  annotate("label", x = -0.8, y = 3, label = "Romance and Mystery") +
+  geom_hline(yintercept = 0, color = "gray", linetype = 3) +
+  geom_vline(xintercept = 0, color = "gray", linetype = 3)
+```
+
+# Discussion of results
+
+More plots and tables would probably be in order, this is just a sample! But it will also be useful to add linguistic examples, such as (@ex1), maybe with interlinear glosses using `{glossr}`! In the HTML output, they are normally not with parenthesis (it's possible to fix it, but a bit complicated), but in PDF and Word output they should be ok.
+
+```{r}
+#| include: false
+get_random_s <- function(filepath) {
+  read_xml(filepath) %>% 
+    xml_find_all("//d1:s") %>% 
+    sample(1) %>% 
+    xml_children() %>% 
+    xml_text() %>% 
+    paste(collapse = " ")
+}
+filepath <- function(file) here("corpus", paste0(file, ".xml"))
+set.seed(100)
+# Replace Factor1 with Factor2 below to get extremes of Factor 2
+left_1 <- filter(scores, Factor1 == min(Factor1))$File
+```
+
+(@ex1) `r get_random_s(filepath(left_1))`
+
+# Conclusion
+
+In conclusion, best of luck to everyone!
+
