@@ -8,10 +8,11 @@ This folder is **not** tracked by git.
 - brown_files.tsv: a tab-separated file with 15 rows and 4 columns summarizing information
 about the registers in the Brown corpus.
 - register-analysis.tsv: a tab-separated file with one row per Brown file and one column per factor for the factor analysis.
+- numbers.rds: an R object with the number of files, tokens, types and registers in the corpus.
 
 ## Scripts
 - data-collection.R: the R script that reads the BROWN TEI files and generates the matrix
-for factor analysis. The dataframe (before converting to a matrix) is stored as "register-analysis.tsv".
+for factor analysis. The dataframe (before converting to a matrix) is stored as "register-analysis.tsv". This file also registers basic information of the corpus in an R list stored as "numbers.rds".
 
 ## Quarto
 - sample-paper.qmd: the source Quarto file of the paper.

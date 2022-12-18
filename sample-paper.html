@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.280">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Sample Student">
 <title>Sample Paper</title>
@@ -18,6 +18,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
@@ -49,6 +112,8 @@ div.csl-indent {
 <script src="sample-paper_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="sample-paper_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="sample-paper_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script src="sample-paper_files/libs/kePrint-0.0.1/kePrint.js"></script><link href="sample-paper_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="sample-paper_files/libs/leipzig-0.8.0/leipzig.css" rel="stylesheet">
+<script src="sample-paper_files/libs/leipzig-0.8.0/leipzig.js"></script>
 </head>
 <body>
 
@@ -58,7 +123,7 @@ div.csl-indent {
    
   <ul>
 <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  Introduction</a></li>
-  <li><a href="#intermediate-session" id="toc-intermediate-session" class="nav-link" data-scroll-target="#intermediate-session"><span class="toc-section-number">2</span>  Intermediate session</a></li>
+  <li><a href="#intermediate-section" id="toc-intermediate-section" class="nav-link" data-scroll-target="#intermediate-section"><span class="toc-section-number">2</span>  Intermediate section</a></li>
   <li><a href="#discussion-of-results" id="toc-discussion-of-results" class="nav-link" data-scroll-target="#discussion-of-results"><span class="toc-section-number">3</span>  Discussion of results</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">4</span>  Conclusion</a></li>
   </ul></nav>
@@ -85,129 +150,27 @@ div.csl-indent {
 <div>
   <div class="abstract">
     <div class="abstract-title">Abstract</div>
-    This is a sample abstract for the sample paper just to show how you can add an abstract.
+    This is a sample abstract for the sample paper just to show how you can add an abstract. It’s not necessary, but you could if you wanted.
   </div>
 </div>
 
 </header><section id="introduction" class="level1" data-number="1"><h1 data-number="1">
 <span class="header-section-number">1</span> Introduction</h1>
-<p>In this sample paper a few tables, plots and pieces of text are reproduced from the register analysis case study. The goal is to illustrate some things to be expected from a final paper from this course.</p>
-<p>For example, a key aspect of the corpus in this analysis is its register structure. Therefore, next to a brief description of the corpus itself, it would make sense to add and describe a table such as <a href="#tbl-registers">Table&nbsp;1</a>.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div id="tbl-registers" class="anchored">
-
-<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>Table&nbsp;1:  List of components of the Brown corpus with the registers they represent, number of files and number of tokens. </caption>
- <thead><tr>
-<th style="text-align:left;"> Section </th>
-   <th style="text-align:right;"> Component </th>
-   <th style="text-align:left;"> Register </th>
-   <th style="text-align:right;"> Files </th>
-   <th style="text-align:right;"> Tokens </th>
-  </tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;vertical-align: middle !important;" rowspan="9"> Informative </td>
-   <td style="text-align:right;"> a </td>
-   <td style="text-align:left;"> Press-reportage </td>
-   <td style="text-align:right;"> 44 </td>
-   <td style="text-align:right;"> 100 554 </td>
-  </tr>
-<tr>
-<td style="text-align:right;"> b </td>
-   <td style="text-align:left;"> Press-editorial </td>
-   <td style="text-align:right;"> 27 </td>
-   <td style="text-align:right;"> 61 604 </td>
-  </tr>
-<tr>
-<td style="text-align:right;"> c </td>
-   <td style="text-align:left;"> Press-reviews </td>
-   <td style="text-align:right;"> 17 </td>
-   <td style="text-align:right;"> 40 704 </td>
-  </tr>
-<tr>
-<td style="text-align:right;"> d </td>
-   <td style="text-align:left;"> Religion </td>
-   <td style="text-align:right;"> 17 </td>
-   <td style="text-align:right;"> 39 399 </td>
-  </tr>
-<tr>
-<td style="text-align:right;"> e </td>
-   <td style="text-align:left;"> Skills &amp; hobbies </td>
-   <td style="text-align:right;"> 36 </td>
-   <td style="text-align:right;"> 82 345 </td>
-  </tr>
-<tr>
-<td style="text-align:right;"> f </td>
-   <td style="text-align:left;"> Popular Lore </td>
-   <td style="text-align:right;"> 48 </td>
-   <td style="text-align:right;"> 110 299 </td>
-  </tr>
-<tr>
-<td style="text-align:right;"> g </td>
-   <td style="text-align:left;"> Belles Lettres, Biography, Memoirs, etc. </td>
-   <td style="text-align:right;"> 75 </td>
-   <td style="text-align:right;"> 173 096 </td>
-  </tr>
-<tr>
-<td style="text-align:right;"> h </td>
-   <td style="text-align:left;"> Miscellaneous </td>
-   <td style="text-align:right;"> 30 </td>
-   <td style="text-align:right;"> 70 117 </td>
-  </tr>
-<tr>
-<td style="text-align:right;"> j </td>
-   <td style="text-align:left;"> Learned </td>
-   <td style="text-align:right;"> 80 </td>
-   <td style="text-align:right;"> 181 888 </td>
-  </tr>
-<tr>
-<td style="text-align:left;vertical-align: middle !important;" rowspan="6"> Imaginative </td>
-   <td style="text-align:right;"> k </td>
-   <td style="text-align:left;"> General Fiction </td>
-   <td style="text-align:right;"> 29 </td>
-   <td style="text-align:right;"> 68 488 </td>
-  </tr>
-<tr>
-<td style="text-align:right;"> l </td>
-   <td style="text-align:left;"> Mystery and Detective Fiction </td>
-   <td style="text-align:right;"> 24 </td>
-   <td style="text-align:right;"> 57 169 </td>
-  </tr>
-<tr>
-<td style="text-align:right;"> m </td>
-   <td style="text-align:left;"> Science Fiction </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 14 470 </td>
-  </tr>
-<tr>
-<td style="text-align:right;"> n </td>
-   <td style="text-align:left;"> Adventure and Western Fiction </td>
-   <td style="text-align:right;"> 29 </td>
-   <td style="text-align:right;"> 69 342 </td>
-  </tr>
-<tr>
-<td style="text-align:right;"> p </td>
-   <td style="text-align:left;"> Romance and Love Stories </td>
-   <td style="text-align:right;"> 29 </td>
-   <td style="text-align:right;"> 70 022 </td>
-  </tr>
-<tr>
-<td style="text-align:right;"> r </td>
-   <td style="text-align:left;"> Humor </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 21 695 </td>
-  </tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<p>Tables can be written either in R chunks or manually, but in any case they should have a caption and be cross-referenceable, like <a href="#tbl-pos">Table&nbsp;2</a>. That table defines the 13 numerical variables, which are very few compared to what <span class="citation" data-cites="biber_1988">Biber (<a href="#ref-biber_1988" role="doc-biblioref">1988</a>)</span> used.</p>
+<p>In this sample paper a few tables, plots and pieces of text are reproduced from the register analysis case study. The goal is to illustrate some things to be expected from a final paper for this course.</p>
+<p>Your paper should have at least an introduction and a conclusion; the specific organization of the sections in between is not important, as long as it makes sense given your content and argumentation. The introduction should at least contain:</p>
+<ul>
+<li>a presentation of the research question(s);</li>
+<li>a description of the corpus and/or dataset used in the study;</li>
+<li>and a summary of the structure of the paper.</li>
+</ul>
+<p>The description of the corpus should cover its source, its size in number of tokens and types (if you had access to the full corpus) and any relevant internal composition (e.g.&nbsp;regional variation, authors, topic categories, etc.). If you didn’t work on a corpus directly but downloaded a dataset, you should also refer to its source and describe what the rows and columns represent. A full description of the dataset may also be included in an appendix or the README if you feel it is not so relevant for the argumentation of the paper. An example would be:</p>
+<blockquote class="blockquote">
+<p>The corpus used for this study is a TEI-compliant version of the Brown corpus: it has 1 161 028 tokens and 381 244 types distributed in 500 and 15. The files were processed to obtain a number of automatically extractable variables for factor analysis, resulting in a dataframe with 500 rows and 14 columns. The meaning of the variables is described in <a href="#tbl-pos">Table&nbsp;1</a> — this study is admittedly very modest in comparison to <span class="citation" data-cites="biber_1988">Biber (<a href="#ref-biber_1988" role="doc-biblioref">1988</a>)</span>.</p>
+</blockquote>
+<p><a href="#tbl-pos">Table&nbsp;1</a> shows that tables can be written either in R chunks or manually (for example, to easily add markdown formatting and footnotes), but in any case they should have a caption and be cross-referenceable.</p>
 <div id="tbl-pos" class="anchored">
 <table class="table">
-<caption>Table&nbsp;2: Numerical variables and their definitions:</caption>
+<caption>Table&nbsp;1: Numerical variables and their definitions.</caption>
 <colgroup>
 <col style="width: 20%">
 <col style="width: 80%">
@@ -274,24 +237,28 @@ div.csl-indent {
 </tbody>
 </table>
 </div>
-<p>The annotation was performed with the help of the <a href="https://tidyverse.tidyverse.org">tidyverse</a>, <a href="https://github.com/masterclm/mclm">mclm</a> and <a href="https://xml2.r-lib.org/">xml2</a> packages <span class="citation" data-cites="tidyverse2019 R-mclm R-xml2">(<a href="#ref-tidyverse2019" role="doc-biblioref">Wickham et al. 2019</a>; <a href="#ref-R-mclm" role="doc-biblioref">Speelman &amp; Montes 2022</a>; <a href="#ref-R-xml2" role="doc-biblioref">Wickham, Hester &amp; Ooms 2021</a>)</span>. Yes, packages should be cited as well.</p>
-</section><section id="intermediate-session" class="level1" data-number="2"><h1 data-number="2">
-<span class="header-section-number">2</span> Intermediate session</h1>
-<p>For specific code ran that is key to the paper, it might be interesting to show it (without evaluating) it in the paper, for example:</p>
+<p>Somewhere in your article you should refer to the main packages used for the analysis: <em>at least</em> R itself <span class="citation" data-cites="R-base">(<a href="#ref-R-base" role="doc-biblioref">R Core Team 2022</a>)</span> and the package(s) used for the main statistical technique, it can include <a href="https://tidyverse.tidyverse.org">tidyverse</a> and <a href="https://github.com/masterclm/mclm">mclm</a>, assuming you would be using them <span class="citation" data-cites="tidyverse2019 R-mclm R-xml2">(<a href="#ref-tidyverse2019" role="doc-biblioref">Wickham et al. 2019</a>; <a href="#ref-R-mclm" role="doc-biblioref">Speelman &amp; Montes 2022</a>; <a href="#ref-R-xml2" role="doc-biblioref">Wickham, Hester &amp; Ooms 2021</a>)</span>. This can be done either in the introduction or in the section where you describe the technique of choice.</p>
+</section><section id="intermediate-section" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Intermediate section</h1>
+<p>There should be a section dedicated to the methodology, in which you introduce the technique(s) used and its/their relationship to the research question(s).</p>
+<p>Normally you wouldn’t show code in your paper, so you can add <code>echo: false</code> to your top YAML. But for specific code that is key to the paper, it might be interesting to show it without evaluating, i.e.&nbsp;indicating <code>eval: false</code> in the YAML of the chunk:</p>
 <div class="cell">
-
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu">read_tsv</span><span class="op">(</span><span class="fu">here</span><span class="op">(</span><span class="st">"register-analysis.tsv"</span><span class="op">)</span>, show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">fa</span> <span class="op">&lt;-</span> <span class="va">dataset</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>row.names <span class="op">=</span> <span class="st">"filename"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/factanal.html">factanal</a></span><span class="op">(</span>factors <span class="op">=</span> <span class="fl">4</span>, scores <span class="op">=</span> <span class="st">"regression"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>But, given that the code is also shared, it is not strictly necessary. We might want to add more references, though, such as citing <span class="citation" data-cites="R-base">R Core Team (<a href="#ref-R-base" role="doc-biblioref">2022</a>)</span>, adding <span class="citation" data-cites="levshina_2015">Levshina (<a href="#ref-levshina_2015" role="doc-biblioref">2015</a>)</span> to <span class="citation" data-cites="biber_1988">Biber (<a href="#ref-biber_1988" role="doc-biblioref">1988</a>)</span>, and including a quote:</p>
+<p>But, given that the source code is included along with the paper, it is not strictly necessary.</p>
+<p>It is most likely relevant to add some literature review as well — similar papers that you have found, references regarding either the technique or the research question. This will require citations, either just pointing to relevant literature or with quotes.</p>
 <blockquote class="blockquote">
-<p>In the description of textual variation, where the factors represent underlying textual dimensions, there is no reason to assume that the factors are completely uncorrelated, and therefore a Promax rotation is recommended. <span class="citation" data-cites="biber_1988">(<a href="#ref-biber_1988" role="doc-biblioref">Biber 1988: 85</a>)</span></p>
+<p>Remember that long quotes (around &gt; 40 words) should be included as block quotes.</p>
 </blockquote>
-<p>Of course, we should use cross references to refer to useful figures and tables such as <a href="#fig-scores">Figure&nbsp;1</a> and <a href="#tbl-factors">Table&nbsp;3</a>.</p>
+<p>Of course, you should use cross references to refer to useful figures and tables such as <a href="#fig-scores">Figure&nbsp;1</a> and <a href="#tbl-factors">Table&nbsp;2</a>. If your figures or tables are not useful enough to be referenced, then maybe they shouldn’t be in the paper in the first place.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-factors" class="anchored">
 
-<table class=" lightable-paper" style="font-size: 22px; font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
-<caption>Table&nbsp;3:  Loadings of the four factors. </caption>
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>Table&nbsp;2:  Loadings of the four factors. </caption>
  <thead><tr>
 <th style="text-align:left;"> Variable </th>
    <th style="text-align:right;"> Factor1 </th>
@@ -400,26 +367,60 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-scores" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="sample-paper_files/figure-html/fig-scores-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: Scatterplot of document scores with the first 2 factors as dimensions and relevant registers annotated.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Scatterplot of document scores with the first two factors as dimensions and relevant registers annotated.</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 </section><section id="discussion-of-results" class="level1" data-number="3"><h1 data-number="3">
 <span class="header-section-number">3</span> Discussion of results</h1>
-<p>More plots and tables would probably be in order, this is just a sample! But it will also be useful to add linguistic examples, such as (1), maybe with interlinear glosses using <a href="https://montesmariana.github.io/glossr/">glossr</a>!</p>
+<p>It might also be useful to add linguistic examples, such as (1), to illustrate concrete examples and enrich your argumentation.</p>
 <ol class="example" type="1">
-<li>He who has not the Son has not the life .</li>
-</ol></section><section id="conclusion" class="level1" data-number="4"><h1 data-number="4">
+<li>Nevertheless , the theory that the determining influence of the hypothalamic balance has a profound influence on the clinical behavior of neuropsychiatric patients has not yet been tested on an adequate number of patients .</li>
+</ol>
+<p>If your examples are not in English, you should add a translation. You can use <a href="https://montesmariana.github.io/glossr/">glossr</a> to aid with pairing an original text and a translation, even if you don’t need aligned lines, as shown in (2). Note that in PDF output the two types of examples cannot be combined because they don’t continue the numbering.</p>
+<div class="cell">
+<div class="cell-output-display">
+<ol start="2" class="example" type="1">
+<li>
+<style>.gloss__line--original {font-style:italic;} .gloss__word .gloss__line:first-child {font-style:normal;font-weight:normal} .gloss__word .gloss__line--2 {font-style:normal;font-weight:normal} .gloss__word .gloss__line--3 {font-style:normal;font-weight:normal} .gloss__line--free {font-style:normal;font-weight:normal}</style>
+<div data-gloss="">
+<p class="gloss__line--original">
+Example-ID
+</p>
+<p>
+Este ejemplo está en español.
+</p>
+<p class="gloss__line--free">
+“This example is in Spanish.”
+</p>
+</div>
+<script>document.addEventListener('DOMContentLoaded', function() {Leipzig({lastLineFree: false}).gloss();});</script>
+</li>
+</ol>
+</div>
+</div>
+</section><section id="conclusion" class="level1" data-number="4"><h1 data-number="4">
 <span class="header-section-number">4</span> Conclusion</h1>
-<p>In conclusion, best of luck to everyone!</p>
+<p>The conclusion should recap the paper, summarizing what was said in each section and how everything ties together. It might feel redundant, in particular in relation to the introduction, but that’s precisely the point: for someone who has not heard your ideas, redundancy is key to understand. Be clear about how each section contributes to your main point and what the take-home message is.</p>
+<p>Of course, the language of the paper should be formal and academic (I appreciate puns and jokes, but don’t lower the register too much). Coherence in the ideas, cohesion between the sentences and appropriate use of the technical vocabulary and of connectors (e.g.&nbsp;<em>however</em>, <em>in contrast</em>, <em>while</em>…) are important and <strong>will be evaluated</strong>. Not because of “language” evaluation but because these aspects are crucial for understanding, and if the reader needs to read a sentence many times and/or have previous knowledge of your process in order to understand the text, it’s not well written. I also recommend checking out the <a href="https://docs.ropensci.org/spelling/">spelling</a> package to run some spelling checks on your files!</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Enjoy your holidays and best of luck!</p>
+</div>
+</div>
 
 </section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-biber_1988" class="csl-entry" role="doc-biblioentry">
 Biber, Douglas. 1988. <em>Variation across <span>Speech</span> and <span>Writing</span></em>. First. <span>Cambridge University Press</span>. <a href="https://doi.org/10.1017/CBO9780511621024">https://doi.org/10.1017/CBO9780511621024</a>.
-</div>
-<div id="ref-levshina_2015" class="csl-entry" role="doc-biblioentry">
-Levshina, Natalia. 2015. <em>How to do linguistics with <span>R</span>: Data exploration and statistical analysis</em>. <span>Amsterdam; Philadelphia</span>: <span>John Benjamins Publishing Company</span>.
 </div>
 <div id="ref-R-base" class="csl-entry" role="doc-biblioentry">
 R Core Team. 2022. <em>R: A language and environment for statistical computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.

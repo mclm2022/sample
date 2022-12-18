@@ -3,24 +3,24 @@ title: "Sample Paper"
 author: "Sample Student"
 format:
   html:
-    theme: sandstone
+    theme: journal
     toc: true
+    code-link: true
+    abstract-title: "Abstract"
   pdf:
     lof: true
     lot: true
     toc: true
   docx:
-    refrence-doc: template.docx
+    reference-doc: template.docx
 number-sections: true
 echo: false
-abstract: "This is a sample abstract for the sample paper just to show how you can add an abstract."
-abstract-title: "Abstract"
+abstract: "This is a sample abstract for the sample paper just to show how you can add an abstract. It's not necessary, but you could if you wanted."
 bibliography:
   - bibliography.bib
   - packages.bib
 csl: unified-style-sheet-for-linguistics.csl
 prefer-html: true
-code-link: true
 ---
 
 ```{r}
@@ -31,16 +31,21 @@ library(tidyverse)
 library(kableExtra)
 library(here)
 library(xml2)
-theme_set(theme_minimal(base_size = 20))
+library(glossr)
+plot_fonts <- if (!knitr::is_html_output()) "serif" else "sans"
+theme_set(theme_minimal(base_size = 16, base_family = plot_fonts))
 
 knitr::write_bib(
   c("base", "mclm", "xml2", "ggplot2", "tidyverse"),
   here("packages.bib")
 )
 
+numbers <- readRDS(here("numbers.rds"))
 dataset <- read_tsv(here("register-analysis.tsv"), show_col_types = FALSE)
 fa <- dataset %>% data.frame(row.names = "filename") %>% 
   as.matrix() %>% factanal(factors = 4, scores = "regression")
+
+use_glossr(styling = list("source" = "i"))
 ```
 
 
@@ -48,20 +53,17 @@ fa <- dataset %>% data.frame(row.names = "filename") %>%
 
 In this sample paper a few tables, plots and pieces of text are reproduced from the register analysis case study. The goal is to illustrate some things to be expected from a final paper for this course.
 
-For example, a key aspect of the corpus in this analysis is its register structure. Therefore, next to a brief description of the corpus itself, it would make sense to add and describe a table such as @tbl-registers.
+Your paper should have at least an introduction and a conclusion; the specific organization of the sections in between is not important, as long as it makes sense given your content and argumentation. The introduction should at least contain:
 
-```{r}
-#| label: tbl-registers
-#| tbl-cap: List of components of the Brown corpus with the registers they represent, number of files and number of tokens.
-brown_mapping_df <- read_tsv(here("brown_files.tsv"), show_col_types = FALSE)
-brown_mapping_df %>% 
-  select(Section, Component, Register, Files, Tokens = Size) %>% 
-  kbl(align = "lrlrr", format.args = list(big.mark = " ")) %>% 
-  kable_paper(full_width = FALSE) %>% 
-  collapse_rows(1)
-```
+- a presentation of the research question(s);
+- a description of the corpus and/or dataset used in the study;
+- and a summary of the structure of the paper.
 
-Tables can be written either in R chunks or manually (for example, to easily add markdown formatting and footnotes), but in any case they should have a caption and be cross-referenceable, like @tbl-pos. That table defines the 13 numerical variables, which are very few compared to what @biber_1988 used.
+The description of the corpus should cover its source, its size in number of tokens and types (if you had access to the full corpus) and any relevant internal composition (e.g. regional variation, authors, topic categories, etc.). If you didn't work on a corpus directly but downloaded a dataset, you should also refer to its source and describe what the rows and columns represent. A full description of the dataset may also be included in an appendix or the README if you feel it is not so relevant for the argumentation of the paper. An example would be:
+
+> The corpus used for this study is a TEI-compliant version of the Brown corpus: it has `r prettyNum(numbers$tokens, big.mark = " ")` tokens and `r prettyNum(numbers$types, big.mark = " ")` types distributed in `r numbers$files` and `r numbers$registers`. The files were processed to obtain a number of automatically extractable variables for factor analysis, resulting in a dataframe with `r nrow(dataset)` rows and `r length(dataset)` columns. The meaning of the variables is described in @tbl-pos --- this study is admittedly very modest in comparison to @biber_1988.
+
+@tbl-pos shows that tables can be written either in R chunks or manually (for example, to easily add markdown formatting and footnotes), but in any case they should have a caption and be cross-referenceable.
 
 Name | Value
 -- | --------
@@ -79,13 +81,15 @@ Name | Value
 `p_adv` | Proportion of adverbs
 `p_qual` | Number of qualifiers, relative to document size
 
-: Numerical variables and their definitions: {#tbl-pos}
+: Numerical variables and their definitions. {#tbl-pos}
 
-The annotation was performed with the help of the `{tidyverse}`, `{mclm}` and `{xml2}` packages [@tidyverse2019; @R-mclm; @R-xml2]. Yes, packages should be cited as well.
+Somewhere in your article you should refer to the main packages used for the analysis: *at least* R itself [@R-base] and the package(s) used for the main statistical technique, it can include `{tidyverse}` and `{mclm}`, assuming you would be using them [@tidyverse2019; @R-mclm; @R-xml2]. This can be done either in the introduction or in the section where you describe the technique of choice.
 
-# Intermediate session
+# Intermediate section
 
-Normally you wouldn't show the code call in your paper, so you can add `echo: false` to your top YAML. But for specific code that is key to the paper, it might be interesting to show it (without evaluating) it in the paper, for example:
+There should be a section dedicated to the methodology, in which you introduce the technique(s) used and its/their relationship to the research question(s).
+
+Normally you wouldn't show code in your paper, so you can add `echo: false` to your top YAML. But for specific code that is key to the paper, it might be interesting to show it without evaluating, i.e. indicating `eval: false` in the YAML of the chunk:
 
 ```{r}
 #| label: show-fa
@@ -96,12 +100,13 @@ fa <- dataset %>% data.frame(row.names = "filename") %>%
   as.matrix() %>% factanal(factors = 4, scores = "regression")
 ```
 
-But, given that the source code is included along with the paper, it is not strictly necessary. We might want to add more references, though, such as citing @R-base, adding @levshina_2015 to @biber_1988, and including a quote:
+But, given that the source code is included along with the paper, it is not strictly necessary.
 
-> In the description of textual variation, where the factors represent underlying textual dimensions, there is no reason to assume that the factors are completely uncorrelated, and therefore a Promax rotation is recommended.
-> [@biber_1988 85]
+It is most likely relevant to add some literature review as well --- similar papers that you have found, references regarding either the technique or the research question. This will require citations, either just pointing to relevant literature or with quotes.
 
-Of course, we should use cross references to refer to useful figures and tables such as @fig-scores and @tbl-factors. If your figures or tables are not useful enough to be referenced, then maybe they shouldn't be in the paper either.
+> Remember that long quotes (around > 40 words) should be included as block quotes.
+
+Of course, you should use cross references to refer to useful figures and tables such as @fig-scores and @tbl-factors. If your figures or tables are not useful enough to be referenced, then maybe they shouldn't be in the paper in the first place.
 
 ```{r}
 #| label: tbl-factors
@@ -109,14 +114,15 @@ Of course, we should use cross references to refer to useful figures and tables 
 fa_loads <- unclass(loadings(fa)) %>% 
   as_tibble(rownames = "Variable") %>% 
   mutate(across(where(is.numeric), ~ if_else(abs(.x) < 0.3, NA_real_, .x)))
-kbl(fa_loads) %>% kable_paper(font_size = 22)
+kbl(fa_loads, booktabs = TRUE) %>% kable_paper()
 ```
 
 ```{r}
 #| label: fig-scores
 #| fig-cap: Scatterplot of document scores with the first two factors as dimensions and relevant registers annotated.
 scores <- as_tibble(fa$scores, rownames = "File")
-brown_mapping <- brown_mapping_df %>%
+
+brown_mapping <- read_tsv(here("brown_files.tsv"), show_col_types = FALSE) %>%
   select(Component, Register) %>%
   deframe()
 
@@ -130,19 +136,19 @@ top_2 <- register_centroids %>% arrange(Factor2) %>%
   tail(2) %>% summarize(across(where(is.numeric), mean))
 
 ggplot(scores, aes(x = Factor1, y = Factor2)) +
-  geom_text(aes(label = File), color = "gray", size = 3, alpha = 0.8) +
+  geom_text(aes(label = File), color = "gray", size = 3, alpha = 0.8, family = plot_fonts) +
   geom_point(data = register_centroids, size = 3) +
   annotate("segment", x = 1.5, y = 1, xend = top_1$Factor1, yend = top_1$Factor2) +
-  annotate("label", x = 1.5, y = 1, label = "Miscellaneous & Learned") +
+  annotate("label", x = 1.5, y = 1, label = "Miscellaneous & Learned", family = plot_fonts) +
   annotate("segment", x = -0.8, y = 3, xend = top_2$Factor1, yend = top_2$Factor2) +
-  annotate("label", x = -0.8, y = 3, label = "Romance and Mystery") +
+  annotate("label", x = -0.8, y = 3, label = "Romance and Mystery", family = plot_fonts) +
   geom_hline(yintercept = 0, color = "gray", linetype = 3) +
   geom_vline(xintercept = 0, color = "gray", linetype = 3)
 ```
 
 # Discussion of results
 
-More plots and tables would probably be in order, this is just a sample! But it will also be useful to add linguistic examples, such as (@ex1), maybe with interlinear glosses using `{glossr}`! In the HTML output, they are normally not with parenthesis (it's possible to fix it, but a bit complicated), but in PDF and Word output they should be ok.
+It might also be useful to add linguistic examples, such as (@ex1), to illustrate concrete examples and enrich your argumentation.
 
 ```{r}
 #| include: false
@@ -155,14 +161,30 @@ get_random_s <- function(filepath) {
     paste(collapse = " ")
 }
 filepath <- function(file) here("corpus", paste0(file, ".xml"))
-set.seed(100)
+set.seed(7)
 # Replace Factor1 with Factor2 below to get extremes of Factor 2
-left_1 <- filter(scores, Factor1 == min(Factor1))$File
+right_1 <- filter(scores, Factor1 == max(Factor1))$File
 ```
 
-(@ex1) `r get_random_s(filepath(left_1))`
+(@ex1) `r get_random_s(filepath(right_1))`
+
+If your examples are not in English, you should add a translation. You can use `{glossr}` to aid with pairing an original text and a translation, even if you don't need aligned lines, as shown in `r gloss("example")`. Note that in PDF output the two types of examples cannot be combined because they don't continue the numbering.
+
+```{r}
+#| label: gloss
+as_gloss("Este ejemplo está en español.",
+         translation = "This example is in Spanish.",
+         label = "example", source = "Example-ID")
+```
 
 # Conclusion
 
-In conclusion, best of luck to everyone!
+The conclusion should recap the paper, summarizing what was said in each section and how everything ties together. It might feel redundant, in particular in relation to the introduction, but that's precisely the point: for someone who has not heard your ideas, redundancy is key to understand. Be clear about how each section contributes to your main point and what the take-home message is.
 
+Of course, the language of the paper should be formal and academic (I appreciate puns and jokes, but don't lower the register too much). Coherence in the ideas, cohesion between the sentences and appropriate use of the technical vocabulary and of connectors (e.g. *however*, *in contrast*, *while*...) are important and **will be evaluated**. Not because of "language" evaluation but because these aspects are crucial for understanding, and if the reader needs to read a sentence many times and/or have previous knowledge of your process in order to understand the text, it's not well written. I also recommend checking out the `{spelling}` package to run some spelling checks on your files!
+
+::: callout-important
+Enjoy your holidays and best of luck!
+:::
+
+`r if (!knitr::is_html_output()) "# References {.unnumbered}"`

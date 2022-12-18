@@ -37,7 +37,8 @@ d <- as_tibble(tei_fnames) %>%
     bigrams = map(all_tokens, ~ paste(.x, c(.x[-1], "EOF"), sep = "|") %>% as_tokens()),
     pos_bigrams = map(pos_codes, ~ paste(.x, c(.x[-1], "EOF"), sep = "|") %>% as_tokens()),
     n_tok = map_dbl(all_tokens, n_tokens),
-    ttr = map_dbl(all_tokens, n_types)/n_tok,
+    n_typ = map_dbl(all_tokens, n_types),
+    ttr = n_typ/n_tok,
     p_bigr = map_dbl(bigrams, n_types) / n_tok,
     p_pobi = map_dbl(pos_bigrams, n_types) / n_tok,
     p_mw = map_dbl(mw_tags, length) / n_tok * 10000,
@@ -47,8 +48,19 @@ d <- as_tibble(tei_fnames) %>%
     p_noun = map_dbl(pos_codes, ~ n_tokens(.x[re("NN")])) / n_tok,
     sp = map2(pos_codes, n_tok, pos_proportions)) %>%
   unnest(sp) %>%
-  mutate(filename = short_names(filename)) %>%
-  select(filename, ttr, word_len, starts_with("p_"))
+  mutate(filename = short_names(filename))
+
 
 # Save matrix ----
-write_tsv(d, here::here("register-analysis.tsv"))
+d %>%
+  select(filename, ttr, word_len, starts_with("p_")) %>% 
+  write_tsv(here::here("register-analysis.tsv"))
+
+# Save corpus data ----
+list(
+  files = nrow(d),
+  tokens = sum(d$n_tok),
+  types = sum(d$n_typ),
+  registers = length(unique(str_extract(d$filename, "[a-z]")))
+) %>% 
+  saveRDS(here::here("numbers.rds"))
