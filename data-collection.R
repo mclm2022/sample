@@ -11,7 +11,7 @@ tei_fnames <- get_fnames(corpus_directory) %>%
   keep_re(r"--[(?xi) / [a-z] \d\d [.]xml $ ]--")
 
 # Create matrix ----
-# 
+# this function needs more documentation
 pos_proportions <- function(pos, nt) {
   pos_mapping <- c(p_ppss = "PPSS", p_adj = "JJ", p_neg = "[*]",
                    p_adv = "RB", p_qual = "QL")

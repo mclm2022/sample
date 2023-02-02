@@ -59,9 +59,11 @@ Your paper should have at least an introduction and a conclusion; the specific o
 - a description of the corpus and/or dataset used in the study;
 - and a summary of the structure of the paper.
 
-The description of the corpus should cover its source, its size in number of tokens and types (if you had access to the full corpus) and any relevant internal composition (e.g. regional variation, authors, topic categories, etc.). If you didn't work on a corpus directly but downloaded a dataset, you should also refer to its source and describe what the rows and columns represent. A full description of the dataset may also be included in an appendix or the README if you feel it is not so relevant for the argumentation of the paper. An example would be:
+The description of the corpus should cover its source, its size in number of tokens and types (if you had access to the full corpus) and any relevant internal composition (e.g. regional variation, authors, topic categories, etc.). If you didn't work on a corpus directly but downloaded a dataset, you should also refer to its source and describe what the rows and columns represent. <!--Actually if you have a dataset it is relevant to describe it regardless of your access to the corpus.-->A full description of the dataset may also be included in an appendix or the README if you feel it is not so relevant for the argumentation of the paper. An example would be:
 
 > The corpus used for this study is a TEI-compliant version of the Brown corpus: it has `r prettyNum(numbers$tokens, big.mark = " ")` tokens and `r prettyNum(numbers$types, big.mark = " ")` types distributed in `r numbers$files` and `r numbers$registers`. The files were processed to obtain a number of automatically extractable variables for factor analysis, resulting in a dataframe with `r nrow(dataset)` rows and `r length(dataset)` columns. The meaning of the variables is described in @tbl-pos --- this study is admittedly very modest in comparison to @biber_1988.
+
+<!--There is something missing in the description ("files" and "registers" after the numbers).-->
 
 @tbl-pos shows that tables can be written either in R chunks or manually (for example, to easily add markdown formatting and footnotes), but in any case they should have a caption and be cross-referenceable.
 
@@ -83,7 +85,7 @@ Name | Value
 
 : Numerical variables and their definitions. {#tbl-pos}
 
-Somewhere in your article you should refer to the main packages used for the analysis: *at least* R itself [@R-base] and the package(s) used for the main statistical technique, it can include `{tidyverse}` and `{mclm}`, assuming you would be using them [@tidyverse2019; @R-mclm; @R-xml2]. This can be done either in the introduction or in the section where you describe the technique of choice.
+Somewhere in your article you should refer to the main packages used for the analysis: *at least* R itself [@R-base] and the package(s) used for the main statistical technique, it can include `{tidyverse}` and `{mclm}`, assuming you would be using them [@tidyverse2019; @R-mclm; @R-xml2]. <!--Here you also cite xml2, but you don't mention it!-->This can be done either in the introduction or in the section where you describe the technique of choice.
 
 # Intermediate section
 
@@ -101,10 +103,13 @@ fa <- dataset %>% data.frame(row.names = "filename") %>%
 ```
 
 But, given that the source code is included along with the paper, it is not strictly necessary.
+<!--Yes! In a separate script documented in the README, not everything computing in the QMD.-->
 
 It is most likely relevant to add some literature review as well --- similar papers that you have found, references regarding either the technique or the research question. This will require citations, either just pointing to relevant literature or with quotes.
 
 > Remember that long quotes (around > 40 words) should be included as block quotes.
+
+<!--Also: quotes should have page numbers when the source has page numbering.-->
 
 Of course, you should use cross references to refer to useful figures and tables such as @fig-scores and @tbl-factors. If your figures or tables are not useful enough to be referenced, then maybe they shouldn't be in the paper in the first place.
 
